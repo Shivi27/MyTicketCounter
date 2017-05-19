@@ -1,0 +1,68 @@
+<script type="text/javascript">
+   $(function() {
+      $('#example').barrating({
+        theme: 'fontawesome-stars'
+      });
+   });
+</script>
+
+<style type="text/css">
+
+#pure
+{
+  width: 80%;
+  display: inline-table;
+  margin-left: 10%;
+  text-align: center;
+}
+</style>
+
+<table class="table table-condensed">
+  <tr>
+    
+        <th>Movie</th>
+        <th>Enter Your Name</th>
+        <th>Enter Your Email</th>
+        <th>Rating</th>
+        <th>Add</th>
+       
+  </tr>
+  <tr>
+        <td><select ng-model="$ctrl.myMovie" value class="btn dropdown-toggle btn-select" data-toggle="dropdown">
+    <option ng-repeat="m in $ctrl.shivMovie" value="{{m.Title}}">{{m.Title}}</option>
+  </select></td>
+
+        <td><input type="text" class="form-control" placeholder="Your Name" ng-model="$ctrl.name"></input></td>
+        <td><input type="text" class="form-control" placeholder="Email Address" ng-model="$ctrl.email"></input></td>
+        <td>
+          <select id="example" ng-model="$ctrl.myRating" value class="btn dropdown-toggle btn-select" data-toggle="dropdown">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </td>
+      
+        <td><button type="submit" class="btn btn-primary" ng-click="$ctrl.addRating()"> Submit </button></td>
+
+  </tr>
+</table>
+
+<table id="pure" class="table table-bordered">
+  <tr>
+    <th>Movie</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Rating</th>
+    <th>Button</th>
+  </tr>
+
+  <tr ng-repeat="shiv in $ctrl.movieRating">
+    <td>{{shiv.myMovie}}</td>
+    <td>{{shiv.name}}</td>
+    <td>{{shiv.email}}</td>
+    <td>{{shiv.myRating}}</td>
+    <td><button type="submit" class="btn btn-danger btn-sm" ng-click="$ctrl.deleteRating(shiv)"> Remove </button></td>
+  </tr>
+</table>

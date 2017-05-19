@@ -1,0 +1,46 @@
+
+<style type="text/css">
+td, th
+{
+  border: 2px solid black;
+  text-align: center;
+}
+#pure
+{
+  width: 80%;
+  display: inline-table;
+  margin-left: 10%;
+  text-align: center;
+}
+</style>
+
+<form class="container-fluid">
+	<div class="form-group">
+		<input type="text" class="form-control" placeholder="Enter Theatre Name" ng-model="$ctrl.Name">
+	</div>
+	<div class="form-group">
+		<input type="text" class="form-control" placeholder="Enter Theatre City" ng-model="$ctrl.City">
+	</div>
+	<div class="form-group">
+		<input type="text" class="form-control" placeholder="Enter Theatre Location" ng-model="$ctrl.Location">
+	</div>
+	 
+	<button type="submit" class="btn btn-primary" ng-click="$ctrl.addTheatre()">Add Theatre Details</button>
+</form>
+
+<table id="pure" class="table table-bordered">
+	<tr>
+      	<th>Theatre Name</th>
+      	<th>City</th>
+        <th>Location</th>
+        <th>Button</th>  
+  	</tr>
+
+  	<tr ng-repeat="shiv in $ctrl.theatreData">
+			<td>{{shiv.Name}}</td>
+			<td>{{shiv.City}}</td>
+			<td>{{shiv.Location}}</td>
+			<td><button type="button" class="btn btn-danger" ng-click="$ctrl.deleteTheatre(shiv)">Delete</button></td>
+  	</tr>
+
+</table>

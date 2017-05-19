@@ -1,0 +1,114 @@
+
+<style type="text/css">
+table {
+    width:100%;
+}
+td, th {
+    border: 2px solid black;
+    text-align: center;
+    }
+#pure
+{
+  width: 80%;
+  display: inline-table;
+  margin-left: 10%;
+  text-align: center;
+}
+  #gugu
+{
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+#poo
+{
+  display: inline-block;
+  margin: 20px;
+}
+</style>
+
+<form class="container-fluid">
+  <div class="form-group">
+  <input type="text" class="form-control" placeholder="Enter Movie Name" ng-model="$ctrl.Title">
+  </div>
+  <br>
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Enter Movie Year" ng-model="$ctrl.Year">
+  </div>
+  <br>
+    <button type="button" class="btn btn-success btn-sm" ng-model="myHide" ng-click="$ctrl.searchMovie()">Search Movie</button>
+</form>
+ 
+  <br>
+  
+  <table class="container">
+  <tr>
+  <td>Movie Poster: {{$ctrl.movieData.Poster}}</td>
+  <td>Movie Title: {{$ctrl.movieData.Title}}</td>
+  <td>Movie Year: {{$ctrl.movieData.Year}}</td>
+  <td>Movie Genre: {{$ctrl.movieData.Genre}}</td>
+  </tr>
+ 
+  </table>
+  
+  <br>
+  <div style="margin-left: 1%;">
+    <button type="submit" class="btn btn-primary" ng-click="$ctrl.addMovie()">Add Movie Details </button>
+  </div>
+
+
+<br>
+<table id="pure" class="table table-bordered">
+	<tr>
+      
+        <th>Poster</th>
+        <th>Title</th>
+        <th>Year</th>
+        <th>Genre</th>
+        <th>Button</th>
+      
+  </tr>
+
+  <tr ng-repeat="shiv in $ctrl.shivMovie">
+			<td><img src="{{shiv.Poster}}" height="150" width="100"></td>
+			<td>{{shiv.Title}}</td>
+			<td>{{shiv.Year}}</td>
+			<td>{{shiv.Genre}}</td>
+			<td><button type="submit" class="btn btn-danger btn-sm" ng-click="$ctrl.deleteMovie(shiv)">delete</button></td>
+  </tr>
+
+</table>
+<!-- 
+<div class="container-fluid" id="gugu">
+      <div id="poo">
+        <img src=".\assets\images\Badrinath.jpg" height="300" width="300">
+        <p>Badrinath ki dulhaniya Releasing on-10/march/2017</p>
+        <button type="button" class="btn btn-primary">Book</button>
+      </div>
+      <div id="poo">
+        <img src=".\assets\images\Baahubali.jpg" height="300" width="300">
+        <p>Baahubali-2 The conclusion Releasing on-24/april/2017</p>
+        <button type="button" class="btn btn-primary">Book</button>
+      </div>
+      <div id="poo">
+        <img src=".\assets\images\Beauty.jpg" height="300" width="300">
+        <p>Beauty and the Beast releasing on-17/march/2017</p>
+        <button type="button" class="btn btn-primary">Book</button>
+      </div>
+      <div id="poo">
+        <img src=".\assets\images\Thor.jpg" height="300" width="300">
+        <p>Thor Ragnarock Releasing on-13/november/2017</p>
+        <button type="button" class="btn btn-primary">Book</button>
+      </div>
+      <div id="poo">
+      <img src=".\assets\images\Pyaar.jpg"  height="300" width="300">
+      <p>Pyaar ka punchnama releasing on-24/september/2017</p>
+      <button type="button" class="btn btn-primary">Book</button>
+      </div>
+      <div id="poo">
+      <img src=".\assets\images\Baajirao.jpg" height="300" width="300">
+      <p>Baajirao releasing on-12/june/2017</p>
+      <button type="button" class="btn btn-primary">Book</button>
+      </div>
+    </div>
+</div> -->

@@ -1,0 +1,91 @@
+
+<script>
+    $(document).ready(function(){
+        $("#myDate").datepicker({ dateFormat: 'dd, M yy' });
+        $("#add").click(function () {
+          var text=($("#hh").val())+" : "+($("#mm").val())+" "+($("#t").val());
+      $('#res').append("<option value='"+text+"'>"+text+"</option>");
+     });
+    });
+
+</script>
+
+
+<style type="text/css">
+#pure
+{
+  width: 80%;
+  display: inline-table;
+  margin-left: 10%;
+  text-align: center;
+}
+
+td, th {
+    text-align: center;
+    }
+</style>
+
+<form class="container-fluid">
+
+<table class="table table-condensed">
+<tr>
+	<th>Add A City</th>
+	<th>Add A Location</th>
+	<th>Add A Theatre</th>
+	<th>Add A Movie</th>
+	<th>Add A Date</th>
+	<th>Add A Time</th>
+</tr>
+<tr>
+	<td><select ng-model="$ctrl.theatreCity" value class="btn dropdown-toggle btn-select" data-toggle="dropdown">
+		<option ng-repeat="shiv in $ctrl.theatreData | unique:'City'">{{shiv.City}}</option>
+	</select></td>
+
+	<td><select ng-model="$ctrl.theatreLocation" class="btn dropdown-toggle btn-select" data-toggle="dropdown">
+		<option ng-repeat="shiv in $ctrl.theatreData | unique:'Location' | filter: {'City':$ctrl.theatreCity} ">{{shiv.Location}}</option>
+	</select></td>
+
+	<td><select ng-model="$ctrl.theatreName" class="btn dropdown-toggle btn-select" data-toggle="dropdown">
+		<option ng-repeat="shiv in $ctrl.theatreData | unique:'Name' | filter: {'Location':$ctrl.theatreLocation}">{{shiv.Name}}</option>
+	</select></td>
+
+	<td><select ng-model="$ctrl.movieName" class="btn dropdown-toggle btn-select" data-toggle="dropdown">
+		<option ng-repeat="shiv in $ctrl.shivMovie" value="{{shiv.Title}}">{{shiv.Title}}</option>
+	</select></td>
+
+	<td><input type="text" id="myDate" name="myDate"></td>
+
+<!-- 	<td><input type="date" class="form-control" ng-model="$ctrl.movieDate" ></input></td>
+ -->
+	<td><input type="text" class="form-control" placeholder="Enter Time Slot" ng-model="$ctrl.movieTime"></td>
+
+</table>
+
+<br>
+	<button type="submit" class="btn btn-primary" ng-click="$ctrl.addData()">Add Mapping Details </button>
+</form>
+<br>
+<table id="pure" class="table table-bordered">
+	<tr>
+      
+      	<th>City</th>
+      	<th>Location</th>
+        <th>Theatre Name</th>
+        <th>Movie Name</th>
+        <th>Show Date</th>
+        <th>Show Timing</th>
+        <th>Button</th>
+      
+  </tr>
+
+  <tr ng-repeat="shiv in $ctrl.shivMapping">
+			<td>{{shiv.theatreCity}}</td>
+			<td>{{shiv.theatreLocation}}</td>
+			<td>{{shiv.theatreName}}</td>
+			<td>{{shiv.movieName}}</td>
+			<td>{{shiv.movieDate}}</td>
+			<td>{{shiv.movieTime}}</td>
+			<td><button type="button" class="btn btn-danger" ng-click="$ctrl.deleteData(shiv)">Delete</button></td>
+  </tr>
+
+</table>

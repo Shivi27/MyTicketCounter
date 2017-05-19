@@ -1,0 +1,253 @@
+
+<style type="text/css">
+	#piku
+	{
+		border-collapse: separate;
+		border-spacing: 20px;
+		margin-left: 20%;
+	}
+
+	#pure
+{
+  width: 80%;
+  display: inline-table;
+  margin-left: 10%;
+  text-align: center;
+}
+
+p {
+	font-variant: small-caps;
+}
+
+   #gugu
+{
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+#poo
+{
+  display: inline-block;
+  margin: 20px;
+}
+
+h1{
+	color: black;
+	font-weight: bolder;
+}
+</style>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#button1').click(function(){
+				$(".toshow").show();
+			});
+			
+		});
+
+
+     seatClicked() {
+   var index = selected.indexOf(seatNo);
+     if(index !==-1) {
+       selected.splice(index, 1);
+    } else {
+       selected.push(seatNo);
+    }
+ }
+
+  getStatus(seatNo) {
+     if('reserved.index(seatNo) > -1') {
+       return 'reserved';
+    } else if(selected.indexOf(seatNo) > -1) {
+      return 'selected';
+     }
+ }
+   clearSelected() {
+     selected = [];
+ }
+
+  showSelected() {
+    return selection.length;
+ }
+
+ seatNumbers() {
+   if(selected.length > 0) {
+     return selected;
+   }
+   else {
+     return "NONE !"
+   }
+ }
+
+
+	</script>
+
+
+	<form class="container-fluid" style="width:100% ; display: block;">
+
+<table class="table table-condensed" style="width:100% ;">
+<tr>
+	<th>Select Your City</th>
+	<th>Select Your Location</th>
+	<th>Select Theatre</th>
+	<th>Select Movie</th>
+	<th>Select A Date</th>
+	<th>Select A Time</th>
+</tr>
+<tr>
+	<td><select ng-model="$ctrl.shivCity" value class="btn dropdown-toggle btn-select" data-toggle="dropdown">
+		<option ng-repeat="shiv in $ctrl.shivMapping | unique: 'theatreCity'">{{shiv.theatreCity}}</option>
+	</select></td>
+
+	<td><select ng-model="$ctrl.shivLocation" class="btn dropdown-toggle btn-select" data-toggle="dropdown">
+		<option ng-repeat="shiv in $ctrl.shivMapping | unique:'theatreLocation' | filter: {'theatreCity':$ctrl.shivCity}">{{shiv.theatreLocation}}</option>
+	</select></td>
+
+	<td><select ng-model="$ctrl.shivName" class="btn dropdown-toggle btn-select" data-toggle="dropdown">
+		<option ng-repeat="shiv in $ctrl.shivMapping | unique:'theatreLocation' | filter: {'theatreLocation':$ctrl.shivLocation}">{{shiv.theatreName}}</option>
+	</select></td>
+
+	<td><select ng-model="$ctrl.movieTitle" class="btn dropdown-toggle btn-select" data-toggle="dropdown">
+		<option ng-repeat="shiv in $ctrl.shivMapping" value="{{shiv.movieName}}">{{shiv.movieName}}</option>
+	</select>
+</td>
+
+<!-- <input id="date-picker" class="form-control"  ng-model="$ctrl.movieDate">
+ -->
+	<td><select ng-model="$ctrl.shivDate" class="btn dropdown-toggle btn-select" data-toggle="dropdown">
+		<option ng-repeat="shiv in $ctrl.shivMapping" value="{{shiv.movieDate}}">{{shiv.movieDate}}</option>
+	</select></td>
+
+	<td><select ng-model="$ctrl.shivTime" class="btn dropdown-toggle btn-select" data-toggle="dropdown">
+		<option ng-repeat="shiv in $ctrl.shivMapping" value="{{shiv.movieTime}}">{{shiv.movieTime}}</option>
+	</select></td>
+
+</table>
+
+<div>
+ <button type="submit" class="btn btn-primary" ng-click="$ctrl.addInfo()">Add Info</button>
+
+ <button type="reset" class="btn btn-warning">Reset</button>
+</div>
+</form>
+<br>
+<table style="width: 80%; margin-left: 10%;" class="table table-bordered">
+	<tr>
+      
+      	<th>City</th>
+      	<th>Location</th>
+        <th>Theatre Name</th>
+        <th>Movie Name</th>
+        <th>Show Date</th>
+        <th>Show Timing</th>
+
+      
+  </tr>
+
+  <tr ng-repeat="shiv in $ctrl.seatBooking">
+			<td>{{shiv.shivCity}}</td>
+			<td>{{shiv.shivLocation}}</td>
+			<td>{{shiv.shivName}}</td>
+			<td>{{shiv.shivTitle}}</td>
+			<td>{{shiv.shivDate}}</td>
+			<td>{{shiv.shivTime}}</td>
+  </tr>
+
+</table>
+
+<input id="button1" type="button" class="btn btn-info active" value="Click Here To Go To THE SEAT BOOKING Page" style="align-self: center;">
+<div class="toshow" style="display:none">
+<table id="piku">
+	<tr>
+		<h3>ALL EYES THIS WAY PLEASE</h3>
+	</tr>
+
+	<tr ng-repeat="row in rows">
+		<td class="padding-right" ng-bind="row"></td>
+		<td class="seat" ng-repeat="col in cols" ng-click="seatClicked(row + col)" ng-switch on="getStatus(row + col)">
+			<img ng-switch-when="selected" src=".\assets\images\seat_selected.png" height="25" width="25">
+			<img ng-switch-when="reserved" src=".\assets\images\seat_reserved.png" height="25" width="25">
+			<img ng-switch-default src=".\assets\images\seat_available.png" height="25" width="25">
+		</td>
+
+	</tr>
+
+	<tr>
+		<td>&nbsp</td>
+		<td class="padding-bottom" ng-repeat="col in cols track by $index" ng-bind="col"></td>
+	</tr>
+</table>
+
+<div>
+	<img src=".\assets\images\seat_available.png" height="25" width="25"> Available Seats
+	<img src=".\assets\images\seat_reserved.png" height="25" width="25" class="padding-left"> Already Booked
+	<img src=".\assets\images\seat_selected.png" height="25" width="25" class="padding-left"> Your Selection
+</div>
+
+<div>
+	<button type="button" class="btn btn-info btn-md btn3d">Book Selected Seats</button>
+	<button class="btn btn-danger btn-md btn3d" ng-click="clearSelected()">Remove Seat Selection
+	</button>
+</div>
+ 
+
+<form class="table table-bordered" id="gugu" style="width: 60%;">
+
+	<h1>Make Payment</h1>
+
+<div class="container-fluid" id="gugu">
+<div id="poo">
+<img src=".\assets\images\express.png" height="55" width="75">
+</div>
+
+<div id="poo">
+<img src=".\assets\images\maestro.png">
+</div>
+
+<div id="poo">
+<img src=".\assets\images\master.png">
+</div>
+
+<div id="poo">
+<img src=".\assets\images\visa.png">
+</div>
+</div>
+
+		<br>
+		<div class="form-group">
+			<p>Card Holder's Name</p>
+			<input type="text" class="form-control" placeholder="Terry Miller" pattern="^[a-zA-Z0-9._-]+$" required autofocus></input>
+		</div>
+		<br>
+		<div class="form-group">
+			<p>Card Number</p>
+			<input type="text" class="form-control" placeholder="5431-1111-1111-1111" pattern="^(\d{4}-){3}\d{4}$|^(\d{4} ){3}\d{4}$|^\d{16}$" required></input>
+		</div>
+		<br>
+		<div class="form-group">
+			<p>Email Address</p>
+			<input type="text" class="form-control" placeholder="testemail@testdomain.co.uk" pattern="[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*" required></input>
+		</div>
+		<br>
+		<div class="form-group">
+			<p>Mobile Number</p>
+			<input type="text" class="form-control" placeholder="+919876543210" pattern="^\+?[0-9-]+$" required></input>
+		</div>
+		<div class="form-group" style="display: inline-flex;" style="margin-right: 30%;">
+			<p>Expiry Date</p>
+		<input type="text" class="form-control" placeholder="01/08" pattern="^((0[1-9])|(1[0-2]))[\/\.\-]*((0[8-9])|(1[1-9]))$" required></input>
+		</div>
+		<div class="form-group" style="display: inline-flex;" style="margin-right: 30%;">
+			<p>CVV Code</p>
+		<input type="password" class="form-control" placeholder="123 | 1234" pattern="^([0-9]{3,4})$" required></input>
+		
+		</div>
+		<br>
+		<div class="form-group">
+		</div>
+		<br>
+
+		<input type="submit" value="Pay" class="btn btn-primary"></input>
+		<input type="submit" value="Cancel" class="btn btn-info"></input>
+	</form>
+	</div>
