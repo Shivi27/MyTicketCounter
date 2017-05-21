@@ -27,7 +27,7 @@ td, th {
 
 <form class="container-fluid">
 
-<table class="table table-condensed">
+<table class="table table-condensed" style="width: 100%;background-color: #dddddd;border-radius: 5px;text-align: center;">
 <tr>
 	<th>Add A City</th>
 	<th>Add A Location</th>
@@ -53,7 +53,7 @@ td, th {
 		<option ng-repeat="shiv in $ctrl.shivMovie" value="{{shiv.Title}}">{{shiv.Title}}</option>
 	</select></td>
 
-	<td><input type="text" id="myDate" name="myDate"></td>
+	<td><input type="text" class="form-control" id="myDate" name="myDate" ng-model="$ctrl.movieDate"></td>
 
 <!-- 	<td><input type="date" class="form-control" ng-model="$ctrl.movieDate" ></input></td>
  -->

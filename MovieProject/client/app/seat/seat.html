@@ -35,6 +35,12 @@ h1{
 	color: black;
 	font-weight: bolder;
 }
+th{
+	text-align: center;
+}
+.gap{
+	margin: 15px;
+}
 </style>
 
 	<script type="text/javascript">
@@ -46,38 +52,38 @@ h1{
 		});
 
 
-     seatClicked() {
-   var index = selected.indexOf(seatNo);
-     if(index !==-1) {
-       selected.splice(index, 1);
-    } else {
-       selected.push(seatNo);
-    }
- }
+ //     seatClicked() {
+ //   var index = selected.indexOf(seatNo);
+ //     if(index !==-1) {
+ //       selected.splice(index, 1);
+ //    } else {
+ //       selected.push(seatNo);
+ //    }
+ // }
 
-  getStatus(seatNo) {
-     if('reserved.index(seatNo) > -1') {
-       return 'reserved';
-    } else if(selected.indexOf(seatNo) > -1) {
-      return 'selected';
-     }
- }
-   clearSelected() {
-     selected = [];
- }
+ //  getStatus(seatNo) {
+ //     if('reserved.index(seatNo) > -1') {
+ //       return 'reserved';
+ //    } else if(selected.indexOf(seatNo) > -1) {
+ //      return 'selected';
+ //     }
+ // }
+ //   clearSelected() {
+ //     selected = [];
+ // }
 
-  showSelected() {
-    return selection.length;
- }
+ //  showSelected() {
+ //    return selection.length;
+ // }
 
- seatNumbers() {
-   if(selected.length > 0) {
-     return selected;
-   }
-   else {
-     return "NONE !"
-   }
- }
+ // seatNumbers() {
+ //   if(selected.length > 0) {
+ //     return selected;
+ //   }
+ //   else {
+ //     return "NONE !"
+ //   }
+ // }
 
 
 	</script>
@@ -85,7 +91,7 @@ h1{
 
 	<form class="container-fluid" style="width:100% ; display: block;">
 
-<table class="table table-condensed" style="width:100% ;">
+<table class="table table-condensed" style="width: 100%;background-color: #dddddd;border-radius: 5px;text-align: center;">
 <tr>
 	<th>Select Your City</th>
 	<th>Select Your Location</th>
@@ -155,12 +161,10 @@ h1{
 
 </table>
 
-<input id="button1" type="button" class="btn btn-info active" value="Click Here To Go To THE SEAT BOOKING Page" style="align-self: center;">
+<input  id="button1" type="button" class="btn btn-info active gap" value="Click Here To Go To THE SEAT BOOKING Page" style="align-self: center;">
 <div class="toshow" style="display:none">
-<table id="piku">
-	<tr>
-		<h3>ALL EYES THIS WAY PLEASE</h3>
-	</tr>
+<table id="piku" class="gap">
+		<h3 class="gap">ALL EYES THIS WAY PLEASE</h3>
 
 	<tr ng-repeat="row in rows">
 		<td class="padding-right" ng-bind="row"></td>
@@ -178,20 +182,20 @@ h1{
 	</tr>
 </table>
 
-<div>
+<div class="gap">
 	<img src=".\assets\images\seat_available.png" height="25" width="25"> Available Seats
 	<img src=".\assets\images\seat_reserved.png" height="25" width="25" class="padding-left"> Already Booked
 	<img src=".\assets\images\seat_selected.png" height="25" width="25" class="padding-left"> Your Selection
 </div>
 
-<div>
+<div class="gap">
 	<button type="button" class="btn btn-info btn-md btn3d">Book Selected Seats</button>
 	<button class="btn btn-danger btn-md btn3d" ng-click="clearSelected()">Remove Seat Selection
 	</button>
 </div>
  
 
-<form class="table table-bordered" id="gugu" style="width: 60%;">
+<form id="gugu" style="width: 90%; max-width: 960px margin-top: 20px;">
 
 	<h1>Make Payment</h1>
 
