@@ -14,10 +14,6 @@ class NavbarController {
   {
     'title': 'mapping',
     'link': '/mapping'
-  },
-  {
-    'title': 'rating',
-    'link': '/rating'
   }
 
 

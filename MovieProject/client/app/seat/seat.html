@@ -294,8 +294,52 @@ function recalculateTotal(sc) {
 
 </form>
 <br>
-
 <input  id="button1" type="button" class="btn btn-info active gap" value="Proceed to Booking Page" style="margin-left: 45%;">
+<br>
+<br>
+<br>
+	<table style="width: 80%; margin-left: 10%;display: none;" class="table table-bordered">
+	<tr>
+      
+      	<th>City</th>
+      	<th>Location</th>
+        <th>Theatre Name</th>
+        <th>Movie Name</th>
+        <th>Show Date</th>
+        <th>Show Timing</th>
+        <!-- <th>Booked For</th>
+        <th>Email</th>    -->
+  </tr>
+
+  <tr ng-repeat="shiv in $ctrl.seatBooking" ng-if="$last">
+			<td>{{shiv.shivCity}}</td>
+			<td>{{shiv.shivLocation}}</td>
+			<td>{{shiv.shivName}}</td>
+			<td>{{shiv.movieTitle}}</td>
+			<td>{{shiv.shivDate}}</td>
+			<td>{{shiv.shivTime}}</td>
+			<!-- <td>{{shiv.userName}}</td>
+			<td>{{shiv.emailId}}</td> -->
+  </tr>
+
+</table>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 </div>
 <div class="toshow" style="display:none">
@@ -307,6 +351,7 @@ function recalculateTotal(sc) {
      <div class="front">SCREEN</div>
    </div>
    <div class="booking-details">
+   	<p>&nbsp;</p>
      <p>Seats that you selected are:</p> <ul id="selected-seats"></ul>
        <BR>
      <p>Total Number of Tickets:<span id="counter">0</span></p>
@@ -383,32 +428,6 @@ function recalculateTotal(sc) {
 </div>
 
 	</form>
-	
-	<table style="width: 80%; margin-left: 10%;" class="table table-bordered">
-	<tr>
-      
-      	<th>City</th>
-      	<th>Location</th>
-        <th>Theatre Name</th>
-        <th>Movie Name</th>
-        <th>Show Date</th>
-        <th>Show Timing</th>
-        <th>Booked For</th>
-        <th>Email</th>   
-  </tr>
-
-  <tr ng-repeat="shiv in $ctrl.seatBooking">
-			<td>{{shiv.shivCity}}</td>
-			<td>{{shiv.shivLocation}}</td>
-			<td>{{shiv.shivName}}</td>
-			<td>{{shiv.movieTitle}}</td>
-			<td>{{shiv.shivDate}}</td>
-			<td>{{shiv.shivTime}}</td>
-			<td>{{shiv.userName}}</td>
-			<td>{{shiv.emailId}}</td>
-  </tr>
-
-</table>
 
 </div>
 

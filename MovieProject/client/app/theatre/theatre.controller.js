@@ -23,12 +23,21 @@ $onInit() {
 
 addTheatre() {
   // if (this.Name&&this.Place&&this.City) {
+
+    
+    if(this.Name == null)
+    {  
+      alert("It will not PROCEED");             
+    }
+else
+{
+    
     this.$http.post('/api/theatre',{
       Name: this.Name,
       City: this.City,
       Location: this.Location
     });
-  // }
+  }
 }
 
   deleteTheatre(theatre) {

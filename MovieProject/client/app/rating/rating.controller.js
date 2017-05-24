@@ -31,12 +31,20 @@ $onInit() {
 }
 
 addRating() {
+
+    if(this.myRating == null) {
+     alert("It will not PROCEED");
+  }
+else
+{
+
       this.$http.post('/api/rating',{
       	myMovie: this.myMovie,
       	name: this.name,
         email: this.email,
       	myRating: this.myRating
     });
+  }
 }
 
   deleteRating(rating) {

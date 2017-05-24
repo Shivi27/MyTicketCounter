@@ -38,6 +38,15 @@ $onInit() {
 
 addData() {
   // if (this.theatreCity&&this.theatreLocation&&this.theatreName&&this.movieName&&this.movieDate&&this.movieTime) {
+    
+
+    if(this.theatreCity == null){
+    alert("It will not PROCEED");
+   }
+
+   else{
+    
+
     this.$http.post('/api/mapping',{
       theatreCity: this.theatreCity,
       theatreLocation: this.theatreLocation,
@@ -47,7 +56,7 @@ addData() {
       movieTime: this.movieTime
     });
   }
-// }
+}
 
   deleteData(mapping) {
     this.$http.delete('/api/mapping/' + mapping._id);

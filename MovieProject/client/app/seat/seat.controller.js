@@ -34,6 +34,15 @@ class SeatComponent {
 
 
   addInfo() {
+
+
+    if(this.shivCity == null){
+      alert("It will not PROCEED");
+    }
+
+    else{
+
+
     this.$http.post('/api/seat',{
       shivCity: this.shivCity,
       shivLocation: this.shivLocation,
@@ -45,6 +54,7 @@ class SeatComponent {
       emailId: this.emailId
     });
   }
+}
 
   deleteThing(seat) {
     this.$http.delete('/api/seat/' + seat._id);
