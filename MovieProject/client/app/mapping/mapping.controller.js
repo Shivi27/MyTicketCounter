@@ -43,7 +43,7 @@ addData() {
       theatreLocation: this.theatreLocation,
       theatreName: this.theatreName,
       movieName: this.movieName,
-      movieDate: this.movieDate,
+      movieDate: $rootScope,
       movieTime: this.movieTime
     });
   }

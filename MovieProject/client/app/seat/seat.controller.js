@@ -32,42 +32,6 @@ class SeatComponent {
     });
   }
 
-//      seatClicked() {
-//      var index = selected.indexOf(seatNo);
-//      if(index !==-1) {
-//        selected.splice(index, 1);
-//      } else {
-//        selected.push(seatNo);
-
-//      }
-//  }
-
-//   getStatus(seatNo) {
-//      if('reserved.index(seatNo) > -1') {
-//        return 'reserved';
-//      } else if(selected.indexOf(seatNo) > -1) {
-//        return 'selected';
-//      }
-//  }
-
-//    clearSelected() {
-//      selected = [];
-//  }
-
-//    showSelected() {
-//      return selection.length;
-// }
-
- 
-
-//    seatNumbers() {
-//      if(selected.length > 0) {
-//        return selected;
-//      }
-//      else {
-//        return "NONE !"
-//      }
-//    }
 
   addInfo() {
     this.$http.post('/api/seat',{
@@ -76,7 +40,9 @@ class SeatComponent {
       shivName: this.shivName,
       movieTitle: this.movieTitle,
       shivDate: this.shivDate,
-      shivTime: this.shivTime
+      shivTime: this.shivTime,
+      userName: this.userName,
+      emailId: this.emailId
     });
   }
 

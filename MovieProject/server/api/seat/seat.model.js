@@ -8,7 +8,9 @@ var SeatSchema = new mongoose.Schema({
     shivName: String,
     movieTitle: String,
     shivDate: String,
-    shivTime: String
+    shivTime: String,
+    userName: String,
+    emailId: String
 });
 
 export default mongoose.model('Seat', SeatSchema);

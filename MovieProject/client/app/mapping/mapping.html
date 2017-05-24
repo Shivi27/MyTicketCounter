@@ -1,12 +1,15 @@
 
 <script>
+
+
     $(document).ready(function(){
-        $("#myDate").datepicker({ dateFormat: 'dd, M yy' });
-        $("#add").click(function () {
-          var text=($("#hh").val())+" : "+($("#mm").val())+" "+($("#t").val());
-      $('#res').append("<option value='"+text+"'>"+text+"</option>");
+        $("#myDate").datepicker({ dateFormat: 'dd M yy' });
+      		$("#addmapping").click(function() {
+      			$rootScope = ($("#myDate").val());
+      		});
+      		
      });
-    });
+   
 
 </script>
 
@@ -25,7 +28,10 @@ td, th {
     }
 </style>
 
+
 <form class="container-fluid">
+<div class="col-md-12">
+<div class="table-responsive">
 
 <table class="table table-condensed" style="width: 100%;background-color: #dddddd;border-radius: 5px;text-align: center;">
 <tr>
@@ -53,7 +59,7 @@ td, th {
 		<option ng-repeat="shiv in $ctrl.shivMovie" value="{{shiv.Title}}">{{shiv.Title}}</option>
 	</select></td>
 
-	<td><input type="text" class="form-control" id="myDate" name="myDate" ng-model="$ctrl.movieDate"></td>
+	<td><input type="text" class="form-control" id="myDate" name="myDate"></td>
 
 <!-- 	<td><input type="date" class="form-control" ng-model="$ctrl.movieDate" ></input></td>
  -->
@@ -62,9 +68,13 @@ td, th {
 </table>
 
 <br>
-	<button type="submit" class="btn btn-primary" ng-click="$ctrl.addData()">Add Mapping Details </button>
+	<button type="submit" id="addmapping" class="btn btn-primary" ng-click="$ctrl.addData()">Add Mapping Details </button>
 </form>
+</div>
+</div>
+
 <br>
+
 <table id="pure" class="table table-bordered">
 	<tr>
       

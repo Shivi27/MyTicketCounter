@@ -21,9 +21,10 @@ p {
 
    #gugu
 {
-  margin-left: auto;
-  margin-right: auto;
+  background-color: white;
   width: 90%;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 #poo
 {
@@ -41,53 +42,215 @@ th{
 .gap{
 	margin: 15px;
 }
+
+.front{
+	width: 300px;
+	margin: 5px 32px 45px 32px;
+	background-color: #f0f0f0;
+	color: #666;
+	text-align: center;
+	padding: 3px;
+	border-radius: 5px;
+}
+.booking-details {
+	float: right;
+	position: relative;
+	width:600px;
+}
+.booking-details h3 {
+	margin: 5px 5px 0 0;
+	font-size: 16px;
+}
+.booking-details p{
+	line-height:26px;
+	font-size:16px;
+	color:#999
+}
+.booking-details p span{
+	color:#666
+}
+div.seatCharts-cell {
+	color: #182C4E;
+	height: 25px;
+	width: 25px;
+	line-height: 25px;
+	margin: 3px;
+	float: left;
+	text-align: center;
+	outline: none;
+	font-size: 13px;
+}
+div.seatCharts-seat {
+	color: #fff;
+	cursor: pointer;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius: 5px;
+}
+div.seatCharts-row {
+	height: 35px;
+}
+div.seatCharts-seat.available {
+	background-color: orange;
+}
+div.seatCharts-seat.focused {
+	background-color: magenta;
+	border: none;
+}
+div.seatCharts-seat.selected {
+	background-color: blue;
+}
+div.seatCharts-seat.unavailable {
+	background-color: red;
+	cursor: not-allowed;
+}
+div.seatCharts-container {
+	border-right: 1px dotted #adadad;
+	width: 400px;
+	padding: 20px;
+	float: left;
+}
+div.seatCharts-legend {
+	padding-left: 0px;
+	bottom: 16px;
+}
+ul.seatCharts-legendList {
+	padding-left: 0px;
+}
+.seatCharts-legendItem{
+	float:left;
+	width:90px;
+	margin-top: 10px;
+	line-height: 2;
+}
+span.seatCharts-legendDescription {
+	margin-left: 5px;
+	line-height: 30px;
+}
+.checkout-button {display: block;
+	width:80px;
+	height:24px;
+	line-height:20px;
+	margin: 10px auto;
+	border:1px solid #999;
+	font-size: 14px;
+	cursor:pointer;
+}
+#selected-seats {
+	max-height: 150px;
+	overflow-y: auto;
+	overflow-x: none;
+	width: 200px;
+}
+#selected-seats li{
+	float:left;
+	width:72px;
+	height:26px;
+	line-height:26px;
+	border:1px solid #d3d3d3;
+	background:#f7f7f7;
+	margin:6px;
+	font-size:14px;
+	font-weight:bold;
+	text-align:center;
+}
 </style>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#button1').click(function(){
 				$(".toshow").show();
+				$(".tohide").hide();
+				// $(".toshow").show(); change the class and instead of .show use .hide
+			//});
+			
+		});
+	});
+		$(document).ready(function(){
+			$('#button2').click(function(){
+				$(".toshow1").show();
+				$(".tohide1").hide();
 			});
 			
 		});
 
+		var price = 450; //price
+$(document).ready(function() {
+	var $cart = $('#selected-seats'), //Sitting Area
+	$counter = $('#counter'), //Votes
+	$total = $('#total'); //Total money
 
- //     seatClicked() {
- //   var index = selected.indexOf(seatNo);
- //     if(index !==-1) {
- //       selected.splice(index, 1);
- //    } else {
- //       selected.push(seatNo);
- //    }
- // }
+	var sc = $('#seat-map').seatCharts({
+		map: [  //Seating chart
+			'aaaaaaaaaa',
+      		'aaaaaaaaaa',
+      		'aaaaaaaaaa',
+      		'aaaaaaaaaa',
+      		'aaaaaaaaaa',
+			'aaaaaaaaaa',
+			'aaaaaaaaaa',
+			'aaaaaaaaaa',
+			'aaaaaaaaaa',
+      		'aaaaaaaaaa'
+		],
+		naming : {
+			top : false,
+			getLabel : function (character, row, column) {
+				return column;
+			}
+		},
+		legend : { //Definition legend
+			node : $('#legend'),
+			items : [
+				[ 'a', 'available',   'Available Seats' ],
+				[ 'a', 'unavailable', 'Reserved Seats']
+			]
+		},
+		click: function () { //Click event
+			if (this.status() == 'available') { //optional seat
+				$('<li>R'+(this.settings.row+1)+' S'+this.settings.label+'</li>')
+					.attr('id', 'cart-item-'+this.settings.id)
+					.data('seatId', this.settings.id)
+					.appendTo($cart);
 
- //  getStatus(seatNo) {
- //     if('reserved.index(seatNo) > -1') {
- //       return 'reserved';
- //    } else if(selected.indexOf(seatNo) > -1) {
- //      return 'selected';
- //     }
- // }
- //   clearSelected() {
- //     selected = [];
- // }
+				$counter.text(sc.find('selected').length+1);
+				$total.text(recalculateTotal(sc)+price);
 
- //  showSelected() {
- //    return selection.length;
- // }
+				return 'selected';
+			} else if (this.status() == 'selected') { //Checked
+					//Update Number
+					$counter.text(sc.find('selected').length-1);
+					//update totalnum
+					$total.text(recalculateTotal(sc)-price);
 
- // seatNumbers() {
- //   if(selected.length > 0) {
- //     return selected;
- //   }
- //   else {
- //     return "NONE !"
- //   }
- // }
+					//Delete reservation
+					$('#cart-item-'+this.settings.id).remove();
+					//optional
+					return 'available';
+			} else if (this.status() == 'unavailable') { //sold
+				return 'unavailable';
+			} else {
+				return this.style();
+			}
+		}
+	});
+	//sold seat
+	sc.get(['1_5', '2_5','3_5','4_6','5_6','6_6','7_5','8_5','9_5', '10_5', '10_5']).status('unavailable');
 
+});
+//sum total money
+function recalculateTotal(sc) {
+	var total = 0;
+	sc.find('selected').each(function () {
+		total += price;
+	});
+
+	return total;
+}
 
 	</script>
 
+<div class="tohide">
 
 	<form class="container-fluid" style="width:100% ; display: block;">
 
@@ -118,8 +281,7 @@ th{
 	</select>
 </td>
 
-<!-- <input id="date-picker" class="form-control"  ng-model="$ctrl.movieDate">
- -->
+
 	<td><select ng-model="$ctrl.shivDate" class="btn dropdown-toggle btn-select" data-toggle="dropdown">
 		<option ng-repeat="shiv in $ctrl.shivMapping" value="{{shiv.movieDate}}">{{shiv.movieDate}}</option>
 	</select></td>
@@ -130,72 +292,36 @@ th{
 
 </table>
 
-<div>
- <button type="submit" class="btn btn-primary" ng-click="$ctrl.addInfo()">Add Info</button>
-
- <button type="reset" class="btn btn-warning">Reset</button>
-</div>
 </form>
 <br>
-<table style="width: 80%; margin-left: 10%;" class="table table-bordered">
-	<tr>
-      
-      	<th>City</th>
-      	<th>Location</th>
-        <th>Theatre Name</th>
-        <th>Movie Name</th>
-        <th>Show Date</th>
-        <th>Show Timing</th>
 
-      
-  </tr>
+<input  id="button1" type="button" class="btn btn-info active gap" value="Proceed to Booking Page" style="margin-left: 45%;">
 
-  <tr ng-repeat="shiv in $ctrl.seatBooking">
-			<td>{{shiv.shivCity}}</td>
-			<td>{{shiv.shivLocation}}</td>
-			<td>{{shiv.shivName}}</td>
-			<td>{{shiv.shivTitle}}</td>
-			<td>{{shiv.shivDate}}</td>
-			<td>{{shiv.shivTime}}</td>
-  </tr>
-
-</table>
-
-<input  id="button1" type="button" class="btn btn-info active gap" value="Click Here To Go To THE SEAT BOOKING Page" style="align-self: center;">
+</div>
 <div class="toshow" style="display:none">
-<table id="piku" class="gap">
-		<h3 class="gap">ALL EYES THIS WAY PLEASE</h3>
 
-	<tr ng-repeat="row in rows">
-		<td class="padding-right" ng-bind="row"></td>
-		<td class="seat" ng-repeat="col in cols" ng-click="seatClicked(row + col)" ng-switch on="getStatus(row + col)">
-			<img ng-switch-when="selected" src=".\assets\images\seat_selected.png" height="25" width="25">
-			<img ng-switch-when="reserved" src=".\assets\images\seat_reserved.png" height="25" width="25">
-			<img ng-switch-default src=".\assets\images\seat_available.png" height="25" width="25">
-		</td>
+<div class="tohide1">
 
-	</tr>
-
-	<tr>
-		<td>&nbsp</td>
-		<td class="padding-bottom" ng-repeat="col in cols track by $index" ng-bind="col"></td>
-	</tr>
-</table>
-
-<div class="gap">
-	<img src=".\assets\images\seat_available.png" height="25" width="25"> Available Seats
-	<img src=".\assets\images\seat_reserved.png" height="25" width="25" class="padding-left"> Already Booked
-	<img src=".\assets\images\seat_selected.png" height="25" width="25" class="padding-left"> Your Selection
+<div class="demo">
+     <div id="seat-map">
+     <div class="front">SCREEN</div>
+   </div>
+   <div class="booking-details">
+     <p>Seats that you selected are:</p> <ul id="selected-seats"></ul>
+       <BR>
+     <p>Total Number of Tickets:<span id="counter">0</span></p>
+<BR>
+     <p>Total Amount: <b>Rs.  <span id="total">0</span></b></p>
+     
+			</div>
+     <div id="legend"></div>
+   </div>
+   <div style="clear:both"></div>
+   <button  id="button2" type="button" class="btn btn-info active gap" style="margin-left: 45%;" >Proceed to Payment Page</button>
 </div>
+<div class="toshow1" style="display:none">
 
-<div class="gap">
-	<button type="button" class="btn btn-info btn-md btn3d">Book Selected Seats</button>
-	<button class="btn btn-danger btn-md btn3d" ng-click="clearSelected()">Remove Seat Selection
-	</button>
-</div>
- 
-
-<form id="gugu" style="width: 90%; max-width: 960px margin-top: 20px;">
+<form id="gugu" style="width: 60%; max-width: 960px margin-top: 20px;">
 
 	<h1>Make Payment</h1>
 
@@ -220,22 +346,22 @@ th{
 		<br>
 		<div class="form-group">
 			<p>Card Holder's Name</p>
-			<input type="text" class="form-control" placeholder="Terry Miller" pattern="^[a-zA-Z0-9._-]+$" required autofocus></input>
+			<input type="text" class="form-control" placeholder="Salman Khan" ng-model="$ctrl.userName" pattern="^[a-zA-Z0-9._-]+$" required autofocus></input>
 		</div>
 		<br>
 		<div class="form-group">
 			<p>Card Number</p>
-			<input type="text" class="form-control" placeholder="5431-1111-1111-1111" pattern="^(\d{4}-){3}\d{4}$|^(\d{4} ){3}\d{4}$|^\d{16}$" required></input>
+			<input type="text" class="form-control" placeholder="9999-9999-9999-9999" pattern="^(\d{4}-){3}\d{4}$|^(\d{4} ){3}\d{4}$|^\d{16}$" required></input>
 		</div>
 		<br>
 		<div class="form-group">
 			<p>Email Address</p>
-			<input type="text" class="form-control" placeholder="testemail@testdomain.co.uk" pattern="[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*" required></input>
+			<input type="text" class="form-control" placeholder="Salman.khan@niit.com" pattern="[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*" required  ng-model="$ctrl.emailId"></input>
 		</div>
 		<br>
 		<div class="form-group">
 			<p>Mobile Number</p>
-			<input type="text" class="form-control" placeholder="+919876543210" pattern="^\+?[0-9-]+$" required></input>
+			<input type="text" class="form-control" placeholder="9811111111" pattern="^\+?[0-9-]+$" required></input>
 		</div>
 		<div class="form-group" style="display: inline-flex;" style="margin-right: 30%;">
 			<p>Expiry Date</p>
@@ -243,15 +369,47 @@ th{
 		</div>
 		<div class="form-group" style="display: inline-flex;" style="margin-right: 30%;">
 			<p>CVV Code</p>
-		<input type="password" class="form-control" placeholder="123 | 1234" pattern="^([0-9]{3,4})$" required></input>
+		<input type="password" class="form-control" placeholder="123" pattern="^([0-9]{3,4})$" required></input>
 		
 		</div>
 		<br>
 		<div class="form-group">
 		</div>
 		<br>
+<div>
+ <button type="submit" class="btn btn-primary" ng-click="$ctrl.addInfo()">Add Info</button>
 
-		<input type="submit" value="Pay" class="btn btn-primary"></input>
-		<input type="submit" value="Cancel" class="btn btn-info"></input>
+ <button type="reset" class="btn btn-warning">Cancel</button>
+</div>
+
 	</form>
-	</div>
+	
+	<table style="width: 80%; margin-left: 10%;" class="table table-bordered">
+	<tr>
+      
+      	<th>City</th>
+      	<th>Location</th>
+        <th>Theatre Name</th>
+        <th>Movie Name</th>
+        <th>Show Date</th>
+        <th>Show Timing</th>
+        <th>Booked For</th>
+        <th>Email</th>   
+  </tr>
+
+  <tr ng-repeat="shiv in $ctrl.seatBooking">
+			<td>{{shiv.shivCity}}</td>
+			<td>{{shiv.shivLocation}}</td>
+			<td>{{shiv.shivName}}</td>
+			<td>{{shiv.movieTitle}}</td>
+			<td>{{shiv.shivDate}}</td>
+			<td>{{shiv.shivTime}}</td>
+			<td>{{shiv.userName}}</td>
+			<td>{{shiv.emailId}}</td>
+  </tr>
+
+</table>
+
+</div>
+
+

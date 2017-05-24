@@ -24,7 +24,7 @@ $onInit() {
 
 searchMovie() {
   if(this.Title||this.Year){
-    this.$http.get('http://www.omdbapi.com/?t='+this.Title+'&y='+this.Year+'&r=json')
+    this.$http.get('http://api.myapifilms.com/imdb/idIMDB?title=matrix&token=dd8bc66a-2974-4b49-9faf-1cf74ddd775b&r=json')
     .then(response => {
       this.movieData = response.data;
       this.socket.syncUpdates('Movie', this.movieData);
